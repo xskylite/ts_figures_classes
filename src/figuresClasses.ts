@@ -14,20 +14,18 @@ export class Triangle implements Figure {
     private c: number,
   ) {
     if (a <= 0 || b <= 0 || c <= 0) {
-      throw new Error('Все стороны должны быть больше 0');
+      throw new Error('All sides must be greater than 0');
     }
 
     const sides = [a, b, c].sort((x, y) => x - y);
 
     if (sides[2] >= sides[0] + sides[1]) {
-      throw new Error(
-        `Стороны ${a}, ${b}, ${c} не могут образовать треугольник`,
-      );
+      throw new Error(`Sides ${a}, ${b}, ${c} cannot form a triangle`);
     }
   }
 
   getArea(): number {
-    const s = (this.a + this.b + this.c) / 2; // Полупериметр
+    const s = (this.a + this.b + this.c) / 2;
     const area = Math.sqrt(s * (s - this.a) * (s - this.b) * (s - this.c));
 
     return Number(area.toFixed(2));
@@ -42,7 +40,7 @@ export class Circle implements Figure {
     private radius: number,
   ) {
     if (radius <= 0) {
-      throw new Error('Радиус должен быть больше 0');
+      throw new Error('The radius must be greater than 0');
     }
   }
 
@@ -62,7 +60,7 @@ export class Rectangle implements Figure {
     private height: number,
   ) {
     if (width <= 0 || height <= 0) {
-      throw new Error('Высота и ширина должны быть больше 0');
+      throw new Error('The height and width must be greater than 0');
     }
   }
 
