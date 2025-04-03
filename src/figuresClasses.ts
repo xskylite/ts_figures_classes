@@ -1,11 +1,101 @@
-export interface Figure {}
+export interface Figure {
+  shape: 'triangle' | 'circle' | 'rectangle';
+  color: 'red' | 'blue' | 'green';
+  getArea(): number;
+}
 
-export class Triangle implements Figure {}
+export class Triangle implements Figure {
+  shape: 'triangle' = 'triangle';
 
-export class Circle implements Figure {}
+  color: 'red' | 'blue' | 'green';
 
-export class Rectangle implements Figure {}
+  private a: number;
 
-export function getInfo(figure): string {
-  return typeof figure;
+  private b: number;
+
+  private c: number;
+
+  constructor(
+    color: 'red' | 'blue' | 'green',
+    a: number,
+    b: number,
+    c: number,
+  ) {
+    if (a <= 0 || b <= 0 || c <= 0) {
+      throw new Error('Все стороны должны быть больше 0');
+    }
+
+    const sides = [a, b, c].sort((x, y) => x - y);
+
+    if (sides[2] >= sides[0] + sides[1]) {
+      throw new Error(
+        `Стороны ${a}, ${b}, ${c} не могут образовать треугольник`,
+      );
+    }
+
+    this.a = a;
+    this.b = b;
+    this.c = c;
+    this.color = color;
+  }
+
+  getArea(): number {
+    const s = (this.a + this.b + this.c) / 2; // Полупериметр
+    const area = Math.sqrt(s * (s - this.a) * (s - this.b) * (s - this.c));
+
+    return Number(area.toFixed(2));
+  }
+}
+
+export class Circle implements Figure {
+  shape: 'circle' = 'circle';
+
+  color: 'red' | 'blue' | 'green';
+
+  private radius: number;
+
+  constructor(color: 'red' | 'blue' | 'green', radius: number) {
+    if (radius <= 0) {
+      throw new Error('Радиус должен быть больше 0');
+    }
+
+    this.color = color;
+    this.radius = radius;
+  }
+
+  getArea(): number {
+    const area = Math.PI * this.radius * this.radius;
+
+    return Math.floor(area * 100) / 100;
+  }
+}
+
+export class Rectangle implements Figure {
+  shape: 'rectangle' = 'rectangle';
+
+  color: 'red' | 'blue' | 'green';
+
+  private width: number;
+
+  private height: number;
+
+  constructor(color: 'red' | 'blue' | 'green', width: number, height: number) {
+    if (width <= 0 || height <= 0) {
+      throw new Error('Высота и ширина должны быть больше 0');
+    }
+
+    this.width = width;
+    this.height = height;
+    this.color = color;
+  }
+
+  getArea(): number {
+    const area = this.width * this.height;
+
+    return Number(area.toFixed(2));
+  }
+}
+
+export function getInfo(figure: Figure): string {
+  return `A ${figure.color} ${figure.shape} - ${figure.getArea()}`;
 }
