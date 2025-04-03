@@ -7,19 +7,11 @@ export interface Figure {
 export class Triangle implements Figure {
   shape: 'triangle' = 'triangle';
 
-  color: 'red' | 'blue' | 'green';
-
-  private a: number;
-
-  private b: number;
-
-  private c: number;
-
   constructor(
-    color: 'red' | 'blue' | 'green',
-    a: number,
-    b: number,
-    c: number,
+    public color: 'red' | 'blue' | 'green',
+    private a: number,
+    private b: number,
+    private c: number,
   ) {
     if (a <= 0 || b <= 0 || c <= 0) {
       throw new Error('Все стороны должны быть больше 0');
@@ -32,11 +24,6 @@ export class Triangle implements Figure {
         `Стороны ${a}, ${b}, ${c} не могут образовать треугольник`,
       );
     }
-
-    this.a = a;
-    this.b = b;
-    this.c = c;
-    this.color = color;
   }
 
   getArea(): number {
@@ -50,43 +37,33 @@ export class Triangle implements Figure {
 export class Circle implements Figure {
   shape: 'circle' = 'circle';
 
-  color: 'red' | 'blue' | 'green';
-
-  private radius: number;
-
-  constructor(color: 'red' | 'blue' | 'green', radius: number) {
+  constructor(
+    public color: 'red' | 'blue' | 'green',
+    private radius: number,
+  ) {
     if (radius <= 0) {
       throw new Error('Радиус должен быть больше 0');
     }
-
-    this.color = color;
-    this.radius = radius;
   }
 
   getArea(): number {
     const area = Math.PI * this.radius * this.radius;
 
-    return Math.floor(area * 100) / 100;
+    return Number(area.toFixed(2));
   }
 }
 
 export class Rectangle implements Figure {
   shape: 'rectangle' = 'rectangle';
 
-  color: 'red' | 'blue' | 'green';
-
-  private width: number;
-
-  private height: number;
-
-  constructor(color: 'red' | 'blue' | 'green', width: number, height: number) {
+  constructor(
+    public color: 'red' | 'blue' | 'green',
+    private width: number,
+    private height: number,
+  ) {
     if (width <= 0 || height <= 0) {
       throw new Error('Высота и ширина должны быть больше 0');
     }
-
-    this.width = width;
-    this.height = height;
-    this.color = color;
   }
 
   getArea(): number {
